@@ -13,6 +13,8 @@ Make requests signed using a [Decentraland Identity](https://github.com/decentra
 This library preserves the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) API and works on browsers and nodejs, you only need an Identity generate with [`dcl-crypto`](https://github.com/decentraland/decentraland-crypto)
 
 ```typescript
+import fetch from "decentraland-crypto-fetch";
+
 fetch("https://service.decentraland.org/api/resource", {
   method: "POST",
   identity,
@@ -22,7 +24,10 @@ fetch("https://service.decentraland.org/api/resource", {
 you can send signed metadata using the `metadata` property
 
 ```typescript
+import fetch from "decentraland-crypto-fetch";
+
 const metadata = { key1: "value1" };
+
 fetch("https://service.decentraland.org/api/resource", {
   method: "POST",
   identity,
@@ -33,10 +38,13 @@ fetch("https://service.decentraland.org/api/resource", {
 You can also inject sign headers into an existing request
 
 ```typescript
+import fetch from "decentraland-crypto-fetch";
+
 const metadata = { key1: "value1" };
 const request = new Request("https://service.decentraland.org/api/resource", {
   method: "POST",
 });
+
 fetch(request, { identity, metadata });
 ```
 
