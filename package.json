@@ -1,0 +1,63 @@
+{
+  "name": "decentraland-crypto-fetch",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -p . -outDir . --sourceMap false --skipLibCheck",
+    "format": "prettier --write '**/*.{ts,js,json,md}'",
+    "semantic-release": "semantic-release",
+    "husky-setup": "husky install",
+    "precommit": "lint-staged --config .husky/pre-commit.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decentraland/decentraland-crypto-fetch.git"
+  },
+  "keywords": [
+    "fetch",
+    "http",
+    "promise",
+    "request",
+    "curl",
+    "wget",
+    "xhr",
+    "whatwg",
+    "decentraland"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/decentraland/decentraland-crypto-fetch/issues"
+  },
+  "homepage": "https://github.com/decentraland/decentraland-crypto-fetch#readme",
+  "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.35",
+    "@types/jest": "^27.0.2",
+    "decentraland-crypto-middleware": "^1.0.1",
+    "fetch-mock": "^9.11.0",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "lint-staged": "^11.2.3",
+    "prettier": "^2.4.1",
+    "semantic-release": "^18.0.0",
+    "ts-jest": "^27.0.7",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.3.1",
+    "tsc-files": "^1.1.2",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "dcl-crypto": "^2.3.0",
+    "isomorphic-fetch": "^3.0.0"
+  }
+}
