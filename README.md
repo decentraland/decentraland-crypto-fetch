@@ -1,5 +1,7 @@
 # decentraland-crypto-fetch
 
+[![Coverage Status](https://coveralls.io/repos/github/decentraland/decentraland-crypto-fetch/badge.svg?branch=main)](https://coveralls.io/github/decentraland/decentraland-crypto-fetch?branch=main)
+
 Make requests signed using a [Decentraland Identity](https://github.com/decentraland/decentraland-crypto)
 
 ## Install
