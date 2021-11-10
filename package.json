@@ -3,6 +3,10 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
   "scripts": {
     "test": "jest",
     "build": "tsc -p . -outDir . --sourceMap false --skipLibCheck",
@@ -46,6 +50,7 @@
     "decentraland-crypto-middleware": "^1.0.1",
     "fetch-mock": "^9.11.0",
     "husky": "^7.0.4",
+    "isomorphic-fetch": "^3.0.0",
     "jest": "^27.3.1",
     "lint-staged": "^11.2.3",
     "prettier": "^2.4.1",
@@ -57,7 +62,6 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "dcl-crypto": "^2.3.0",
-    "isomorphic-fetch": "^3.0.0"
+    "dcl-crypto": "^2.3.0"
   }
 }

@@ -1,6 +1,5 @@
 import { Authenticator } from "dcl-crypto/dist/Authenticator";
 import { AuthIdentity } from "dcl-crypto/dist/types";
-import "isomorphic-fetch";
 
 export type Metadata = Record<string, any>;
 export type SignedRequestInit = RequestInit & {
