@@ -9,28 +9,25 @@ on:
 
 jobs:
   release_alpha:
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 12, 14, 16 ]
+
+    name: Test(Node ${{ matrix.node-version }} on ${{ matrix.os }})
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: node.js 12
-        uses: actions/setup-node@v1
+      - name: node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
+          node-version: ${{ matrix.node-version }}
 
       - name: installing
         run: npm ci
 
-      - name: linters
-        uses: wearerequired/lint-action@v1
-        with:
-          prettier: true
-          prettier_extensions: ts,js,json,md
-
       - name: testing
         run: npm test
-
-      - name: building
-        run: npm run build
