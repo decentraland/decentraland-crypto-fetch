@@ -2,9 +2,9 @@ import { Authenticator } from "dcl-crypto/dist/Authenticator";
 import { AuthIdentity, AuthLinkType } from "dcl-crypto/dist/types";
 import signedFetchFactory from "./signedFetchFactory";
 import verify from "decentraland-crypto-middleware/lib/verify";
-import "isomorphic-fetch";
+import fetch, { Request, Headers } from "node-fetch";
 
-const signedFetch = signedFetchFactory();
+const signedFetch = signedFetchFactory({ fetch, Headers, Request });
 
 const identity: AuthIdentity = {
   ephemeralIdentity: {
@@ -90,7 +90,7 @@ describe(`fetch`, () => {
     const request = new Request("https://httpbin.org/anything", {
       method: "POST",
     });
-    const response = await signedFetch(request, { identity, metadata });
+    const response = await signedFetch(request as any, { identity, metadata });
     const body = await response.json();
     expect(body).toHaveProperty("method", "POST");
     expect(body).toHaveProperty("url", "https://httpbin.org/anything");

@@ -5,9 +5,9 @@ import { SignedRequestInit } from "./types";
 import { getImplementation } from "./utils";
 
 export type SignedFetchFactoryOptions = SignedHeaderFactoryOptions & {
-  URL?: typeof URL;
-  Request?: typeof Request;
-  fetch?: typeof fetch;
+  URL?: typeof URL | any;
+  Request?: typeof Request | any;
+  fetch?: typeof fetch | any;
 };
 
 export default function signedFetchFactory(
