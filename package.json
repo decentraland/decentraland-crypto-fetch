@@ -2,14 +2,14 @@
   "name": "decentraland-crypto-fetch",
   "version": "0.0.0-development",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=12",
     "npm": ">=6"
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc -p . -outDir . --sourceMap false --skipLibCheck",
+    "build": "tsc -p . --skipLibCheck",
     "format": "prettier --write '**/*.{ts,js,json,md}'",
     "semantic-release": "semantic-release",
     "husky-setup": "husky install",
@@ -62,6 +62,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "core-js-pure": "^3.19.1",
     "dcl-crypto": "^2.3.0"
   }
 }

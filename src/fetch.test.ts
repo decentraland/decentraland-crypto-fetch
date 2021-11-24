@@ -1,8 +1,10 @@
 import { Authenticator } from "dcl-crypto/dist/Authenticator";
 import { AuthIdentity, AuthLinkType } from "dcl-crypto/dist/types";
+import signedFetchFactory from "./signedFetchFactory";
 import verify from "decentraland-crypto-middleware/lib/verify";
-import signedFetch from "./index";
 import "isomorphic-fetch";
+
+const signedFetch = signedFetchFactory();
 
 const identity: AuthIdentity = {
   ephemeralIdentity: {

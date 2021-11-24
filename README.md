@@ -2,6 +2,13 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/decentraland/decentraland-crypto-fetch/badge.svg?branch=main)](https://coveralls.io/github/decentraland/decentraland-crypto-fetch?branch=main)
 
+- [Install](#install)
+- [Usage](#usage)
+  - [Auth Chain Generator](#auth-chain-generator)
+- [Inject fetcher](#inject-fetcher)
+- [Server](#server)
+- [Develop](#develop)
+
 Make requests signed using a [Decentraland Identity](https://github.com/decentraland/decentraland-crypto)
 
 ## Install
@@ -53,6 +60,17 @@ fetch(request, { identity, metadata });
 ### Auth Chain Generator
 
 If you want to simulate signed headers you can use the [`Auth Chain Generator`](https://git.io/Jimns)
+
+## Inject fetcher
+
+If your environment doesn't have a global [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) function, you can create a signedFetch injecting your own implementations as follow
+
+```typescript
+import { signedFetchFactory } from "decentraland-crypto-fetch/lib/factory";
+import { Headers, Request, fetch } from "node-fetch";
+
+const signedFetch = signedFetchFactory({ Headers, Request, fetch });
+```
 
 ## Server
 
