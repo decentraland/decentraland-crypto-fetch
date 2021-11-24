@@ -5,6 +5,7 @@
 - [Install](#install)
 - [Usage](#usage)
   - [Auth Chain Generator](#auth-chain-generator)
+  - [Identity Generator](#identity-generator)
 - [Inject fetcher](#inject-fetcher)
 - [Server](#server)
 - [Develop](#develop)
@@ -60,6 +61,10 @@ fetch(request, { identity, metadata });
 ### Auth Chain Generator
 
 If you want to simulate signed headers you can use the [`Auth Chain Generator`](https://git.io/Jimns)
+
+### Identity Generator
+
+If you need an ephemeral identity you can generate one using the [`Identity Generator`](https://git.io/JMJmU)
 
 ## Inject fetcher
 
