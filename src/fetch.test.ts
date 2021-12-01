@@ -1,10 +1,10 @@
+import fetch, { Request, Headers } from "node-fetch";
 import { Authenticator } from "dcl-crypto/dist/Authenticator";
 import { AuthIdentity, AuthLinkType } from "dcl-crypto/dist/types";
-import signedFetchFactory from "./signedFetchFactory";
 import verify from "decentraland-crypto-middleware/lib/verify";
-import fetch, { Request, Headers } from "node-fetch";
+import signedFetchFactory from "./signedFetchFactory";
 
-const signedFetch = signedFetchFactory({ fetch, Headers, Request });
+const signedFetch = signedFetchFactory({ fetch, Headers, Request } as any);
 
 const identity: AuthIdentity = {
   ephemeralIdentity: {
@@ -31,8 +31,27 @@ const identity: AuthIdentity = {
 };
 
 describe(`fetch`, () => {
-  test(`should make a regurar request when there isn't and identity`, async () => {
+  test(`should make a regurar request when there isn't and identity (using a string)`, async () => {
     const response = await signedFetch("https://httpbin.org/anything");
+    const body = await response.json();
+    expect(body).toHaveProperty("method", "GET");
+    expect(body).toHaveProperty("url", "https://httpbin.org/anything");
+    expect(body.headers).toEqual(
+      expect.objectContaining({
+        Accept: "*/*",
+        Host: "httpbin.org",
+      })
+    );
+
+    expect(body.headers).not.toHaveProperty("X-Identity-Auth-Chain-0");
+    expect(body.headers).not.toHaveProperty("X-Identity-Auth-Chain-1");
+    expect(body.headers).not.toHaveProperty("X-Identity-Auth-Chain-2");
+    expect(body.headers).not.toHaveProperty("X-Identity-Timestamp");
+    expect(body.headers).not.toHaveProperty("X-Identity-Metadata");
+  });
+
+  test(`should make a regurar request when there isn't and identity (using an instanceof URL)`, async () => {
+    const response = await signedFetch(new URL("https://httpbin.org/anything"));
     const body = await response.json();
     expect(body).toHaveProperty("method", "GET");
     expect(body).toHaveProperty("url", "https://httpbin.org/anything");
@@ -90,7 +109,7 @@ describe(`fetch`, () => {
     const request = new Request("https://httpbin.org/anything", {
       method: "POST",
     });
-    const response = await signedFetch(request as any, { identity, metadata });
+    const response = await signedFetch(request, { identity, metadata });
     const body = await response.json();
     expect(body).toHaveProperty("method", "POST");
     expect(body).toHaveProperty("url", "https://httpbin.org/anything");

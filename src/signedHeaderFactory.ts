@@ -7,7 +7,7 @@ const AUTH_TIMESTAMP_HEADER = "x-identity-timestamp";
 const AUTH_METADATA_HEADER = "x-identity-metadata";
 
 export type SignedHeaderFactoryOptions = {
-  Headers?: typeof Headers | any;
+  Headers?: typeof Headers;
 };
 
 export default function signedHeaderFactory(

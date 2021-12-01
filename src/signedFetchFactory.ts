@@ -1,16 +1,16 @@
 import signedHeaderFactory, {
   SignedHeaderFactoryOptions,
 } from "./signedHeaderFactory";
-import { SignedRequestInit } from "./types";
+import { SignedRequestInfo, SignedRequestInit } from "./types";
 import { getImplementation } from "./utils";
 
 export type SignedFetchFactoryOptions = SignedHeaderFactoryOptions & {
-  URL?: typeof URL | any;
-  Request?: typeof Request | any;
-  fetch?: typeof fetch | any;
+  URL?: typeof URL;
+  Request?: typeof Request;
+  fetch?: typeof fetch;
 };
 
-export default function signedFetchFactory(
+export default function signedFetchFactory<R = Request>(
   options: SignedFetchFactoryOptions = {}
 ) {
   const signedHeader = signedHeaderFactory(options);
@@ -19,26 +19,49 @@ export default function signedFetchFactory(
   const fetch = getImplementation(options, "fetch");
 
   return function signedFetch(
-    input: RequestInfo,
+    input: SignedRequestInfo,
     init?: SignedRequestInit | undefined
   ) {
     if (init && init.identity) {
-      const { identity, metadata, ...extra } = init;
-      const url = new URL(typeof input === "string" ? input : input.url);
-      const request = new Request(input, {
-        ...extra,
-        headers: signedHeader(
-          identity,
-          init.method || "GET",
-          url.pathname + url.search,
-          metadata || {},
-          extra?.headers
-        ),
+      const { identity, metadata, ...originalInit } = init;
+
+      // handle url as string
+      if (
+        typeof input === "string" ||
+        input instanceof URL ||
+        (globalThis.URL && input instanceof globalThis.URL)
+      ) {
+        const url = typeof input === "string" ? new URL(input) : input;
+        const request = new Request(url.toString(), {
+          ...originalInit,
+          headers: signedHeader(
+            identity,
+            init.method || "GET",
+            url.pathname,
+            metadata || {},
+            originalInit?.headers
+          ),
+        });
+
+        return fetch(request);
+      }
+
+      const url = new URL(input.url);
+      const request = new Request(input as any);
+      const headers = signedHeader(
+        identity,
+        input.method || "GET",
+        url.pathname,
+        metadata || {}
+      );
+
+      headers.forEach((value, key) => {
+        request.headers.set(key, value);
       });
 
       return fetch(request);
     }
 
-    return fetch(input, init);
+    return fetch(input as RequestInfo, init);
   };
 }
