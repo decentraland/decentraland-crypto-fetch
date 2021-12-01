@@ -5,3 +5,4 @@ coverage
 *.lcov
 node_modules/
 src/
+bin/
