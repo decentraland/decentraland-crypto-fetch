@@ -105,3 +105,6 @@ dist
 
 # Compiled files
 lib/
+
+# Identity file
+identity.json
