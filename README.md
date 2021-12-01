@@ -8,6 +8,7 @@
   - [Identity Generator](#identity-generator)
 - [Inject fetcher](#inject-fetcher)
 - [Server](#server)
+- [CLI](#cli)
 - [Develop](#develop)
 
 Make requests signed using a [Decentraland Identity](https://github.com/decentraland/decentraland-crypto)
@@ -80,6 +81,27 @@ const signedFetch = signedFetchFactory({ Headers, Request, fetch });
 ## Server
 
 If you want to build services that accept Signed Request you use [`decentraland-crypto-middleware`](https://github.com/decentraland/decentraland-crypto-middleware)
+
+## CLI
+
+```bash
+> npm run fetch -- --help
+
+Fetch the contents of the URL and sign the request with and identity if there is any
+
+Options:
+      --help      Show help                                                                    [boolean]
+      --version   Show version number                                                          [boolean]
+  -X, --method    Specifies a custom request method to use when communicating with the HTTP server.
+                                   [choices: "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
+                                                                                        [default: "GET"]
+  -i, --include   Include the HTTP response headers in the output. The HTTP response headers can include
+                  things like server name, cookies, date of the document, HTTP version and more...                                                                            [boolean]
+      --identity  Path to the identity file uses to sign the request                            [string]
+  -H, --header    Extra header to include in the request when sending HTTP to a server.          [array]
+  -d, --data      Sends the specified data in a POST request to the HTTP server                 [string]
+      --no-color  Disabled color output                                                        [boolean]
+```
 
 ## Develop
 

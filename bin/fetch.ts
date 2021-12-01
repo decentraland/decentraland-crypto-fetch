@@ -8,7 +8,7 @@ import { signedFetchFactory, SignedRequestInit } from "../src";
 import type { AuthIdentity } from "dcl-crypto";
 
 const parser = yargs
-  .help(
+  .usage(
     "Fetch the contents of the URL and sign the request with and identity if there is any"
   )
   .option("method", {
@@ -40,7 +40,8 @@ const parser = yargs
       "Sends the specified data in a POST request to the HTTP server",
   })
   .options("no-color", {
-    description: "Disbled color output",
+    type: "boolean",
+    description: "Disabled color output",
   });
 
 const args = parser.parse();
