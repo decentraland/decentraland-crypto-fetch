@@ -28,6 +28,10 @@ const parser = yargs
     description: "Path to identity.json file",
     type: "string",
   })
+  .option("json", {
+    description: "Send and recieve data as json",
+    type: "boolean",
+  })
   .option("header", {
     alias: "H",
     type: "array",
@@ -91,8 +95,8 @@ Promise.resolve()
       init.method = String(args.method || "GET").toLowerCase();
     }
 
+    const headers: globalThis.Headers = new Headers() as any;
     if (args.header && args.header.length > 0) {
-      const headers: globalThis.Headers = new Headers() as any;
       for (const h of args.header) {
         const header = String(h);
         const separator = header.indexOf(":");
@@ -100,8 +104,13 @@ Promise.resolve()
         const value = header.slice(separator + 1).trim();
         headers.append(key, value);
       }
-      init.headers = headers;
     }
+
+    if (args.json) {
+      headers.append("Content-Type", "application/json");
+    }
+
+    init.headers = headers;
 
     if (args.data) {
       init.body = readOption(args.data);
@@ -119,7 +128,16 @@ Promise.resolve()
 
     const body = await response.text();
     console.log();
-    console.log(body);
+    if (args.json) {
+      try {
+        const json = JSON.parse(body);
+        console.log(JSON.stringify(json, null, 2));
+      } catch {
+        console.log(body);
+      }
+    } else {
+      console.log(body);
+    }
   })
   .catch((err) => {
     console.error(colors.red(err.message));
