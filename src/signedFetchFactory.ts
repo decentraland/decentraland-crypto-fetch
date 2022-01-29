@@ -1,20 +1,17 @@
-import signedHeaderFactory, {
-  SignedHeaderFactoryOptions,
-} from "./signedHeaderFactory";
+import signRequestV1Factory from "./signRequestV1Factory";
 import { SignedRequestInfo, SignedRequestInit } from "./types";
 import { getImplementation } from "./utils";
 
-export type SignedFetchFactoryOptions = SignedHeaderFactoryOptions & {
+export type SignedFetchFactoryOptions = {
   URL?: typeof URL;
   Request?: typeof Request;
   fetch?: typeof fetch;
 };
 
-export default function signedFetchFactory<R = Request>(
+export default function signedFetchFactory(
   options: SignedFetchFactoryOptions = {}
 ) {
-  const signedHeader = signedHeaderFactory(options);
-  const URL = getImplementation(options, "URL");
+  const signRequestV1 = signRequestV1Factory(options);
   const Request = getImplementation(options, "Request");
   const fetch = getImplementation(options, "fetch");
 
@@ -24,42 +21,8 @@ export default function signedFetchFactory<R = Request>(
   ) {
     if (init && init.identity) {
       const { identity, metadata, ...originalInit } = init;
-
-      // handle url as string
-      if (
-        typeof input === "string" ||
-        input instanceof URL ||
-        (globalThis.URL && input instanceof globalThis.URL)
-      ) {
-        const url = typeof input === "string" ? new URL(input) : input;
-        const request = new Request(url.toString(), {
-          ...originalInit,
-          headers: signedHeader(
-            identity,
-            init.method || "GET",
-            url.pathname,
-            metadata || {},
-            originalInit?.headers
-          ),
-        });
-
-        return fetch(request);
-      }
-
-      const url = new URL(input.url);
-      const request = new Request(input as any);
-      const headers = signedHeader(
-        identity,
-        input.method || "GET",
-        url.pathname,
-        metadata || {}
-      );
-
-      headers.forEach((value, key) => {
-        request.headers.set(key, value);
-      });
-
-      return fetch(request);
+      let request = new Request(input as RequestInfo, originalInit);
+      return fetch(signRequestV1(request, { identity, metadata }));
     }
 
     return fetch(input as RequestInfo, init);
