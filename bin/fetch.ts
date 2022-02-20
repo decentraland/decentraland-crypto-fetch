@@ -4,7 +4,7 @@ import colors from "colors";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 import fetch, { Request, Headers } from "node-fetch";
-import { signedFetchFactory, SignedRequestInit } from "../src";
+import { initializeSignedFetch, SignedRequestInit } from "../src";
 import type { AuthIdentity } from "dcl-crypto";
 
 const parser = yargs
@@ -84,7 +84,11 @@ if (args.identity) {
 
 Promise.resolve()
   .then(async () => {
-    const signedFetch = signedFetchFactory({ fetch, Request, Headers } as any);
+    const signedFetch = initializeSignedFetch({
+      fetch,
+      Request,
+      Headers,
+    } as any);
     const init: SignedRequestInit = { identity };
 
     if (args.method) {

@@ -1,28 +1,30 @@
 import { Authenticator } from "dcl-crypto/dist/Authenticator";
 import { getImplementation } from "./utils";
-import { SignedRequestOptions } from "./types";
+import { SignedRequestV1Options } from "./types";
 
 const AUTH_CHAIN_HEADER_PREFIX = "x-identity-auth-chain-";
 const AUTH_TIMESTAMP_HEADER = "x-identity-timestamp";
 const AUTH_METADATA_HEADER = "x-identity-metadata";
 
-export type SignedHeaderFactoryOptions = {
+export type SignedFetchV1Options = {
   URL?: typeof URL;
 };
 
-export default function signRequestV1Factory(
-  options: SignedHeaderFactoryOptions = {}
+export default function initializeSignRequestV1(
+  options: SignedFetchV1Options = {}
 ) {
   const URL = getImplementation(options, "URL");
-  return function signRequestV1(
-    request: Request,
-    options: SignedRequestOptions = {}
-  ): Request {
+  return async function signRequestV1(
+    request: Pick<Request, "method" | "url"> & {
+      headers: Pick<Request["headers"], "set">;
+    },
+    options: SignedRequestV1Options = {}
+  ): Promise<Request> {
     if (!options.identity) {
-      return request;
+      return request as Request;
     }
 
-    const method = request.method || "get";
+    const method = request.method || "GET";
     const pathname = new URL(request.url).pathname;
     const timestamp = String(Date.now());
     const data = JSON.stringify(options.metadata || {});
@@ -37,6 +39,6 @@ export default function signRequestV1Factory(
 
     request.headers.set(AUTH_TIMESTAMP_HEADER, timestamp);
     request.headers.set(AUTH_METADATA_HEADER, data);
-    return request;
+    return request as Request;
   };
 }

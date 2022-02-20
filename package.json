@@ -4,8 +4,8 @@
   "description": "",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=12",
-    "npm": ">=6"
+    "node": ">=14",
+    "npm": ">=7"
   },
   "scripts": {
     "test": "jest",
@@ -52,6 +52,7 @@
     "colors": "^1.4.0",
     "decentraland-crypto-middleware": "^1.0.1",
     "fetch-mock": "^9.11.0",
+    "formdata-node": "^4.3.2",
     "husky": "^7.0.4",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.3.1",

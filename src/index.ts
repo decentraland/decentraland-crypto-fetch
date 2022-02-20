@@ -1,5 +1,5 @@
 export * from "./types";
-export * from "./factory";
-import signedFetchFactory from "./signedFetchFactory";
+export * from "./initialize";
+import initializeSignedFetch from "./initializeSignedFetch";
 
-export default signedFetchFactory();
+export default initializeSignedFetch();
