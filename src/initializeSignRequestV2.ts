@@ -43,7 +43,7 @@ export default function initializeSignRequestV2(
     const expiration = new Date(
       Date.now() + getExpiresIn(options.expiresIn, defaultExpiresIn)
     );
-    const method = request.method || "GET";
+    const method = (request.method || "GET").toUpperCase();
     const url = new URL(request.url);
     const contentType = request.headers.get("Content-Type");
     const isMultipart = isFormData(contentType);
