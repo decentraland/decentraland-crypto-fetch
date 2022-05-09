@@ -27,7 +27,11 @@ export function getExpiresIn(
 }
 
 export function isFormData(contentType?: string | null) {
-  return !!contentType && contentType.startsWith("multipart/form-data");
+  return (
+    !!contentType &&
+    (contentType === "multipart/form-data" ||
+      contentType.startsWith("multipart/form-data;"))
+  );
 }
 
 export function toHex(buffer: ArrayBuffer) {
