@@ -40,25 +40,26 @@ export default function initializeSignRequestV2(
     }
 
     const algorithm = options.algorithm || defaultAlgorithm;
-    const expiration = new Date(
-      Date.now() + getExpiresIn(options.expiresIn, defaultExpiresIn)
-    );
     const method = (request.method || "GET").toUpperCase();
     const url = new URL(request.url);
-    const contentType = request.headers.get("Content-Type");
-    const isMultipart = isFormData(contentType);
-
     const canonicalRequest = [
       method + " " + url.pathname + url.search,
       HOST_HEADER + ":" + url.hostname,
     ];
 
+    // content-type
+    const contentType = request.headers.get("Content-Type");
+    const isMultipart = isFormData(contentType);
     if (isMultipart) {
       canonicalRequest.push(CONTENT_TYPE_HEADER + ":" + "multipart/form-data");
     } else if (contentType) {
       canonicalRequest.push(CONTENT_TYPE_HEADER + ":" + contentType);
     }
 
+    // expiration
+    const expiration = new Date(
+      Date.now() + getExpiresIn(options.expiresIn, defaultExpiresIn)
+    );
     canonicalRequest.push(EXPIRATION_HEADER + ":" + expiration.toJSON());
 
     if (options.metadata) {
