@@ -21,42 +21,42 @@ Make requests signed using a [Decentraland Identity](https://github.com/decentra
 
 ## Usage
 
-This library preserves the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) API and works on browsers and nodejs, you only need an Identity generate with [`dcl-crypto`](https://github.com/decentraland/decentraland-crypto)
+This library preserves the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) API and works on browsers and nodejs, you only need an Identity generate with [`@dcl/crypto`](https://github.com/decentraland/decentraland-crypto)
 
 ```typescript
-import fetch from "decentraland-crypto-fetch";
+import fetch from 'decentraland-crypto-fetch'
 
-fetch("https://service.decentraland.org/api/resource", {
-  method: "POST",
+fetch('https://service.decentraland.org/api/resource', {
+  method: 'POST',
   identity,
-});
+})
 ```
 
 you can send signed metadata using the `metadata` property
 
 ```typescript
-import fetch from "decentraland-crypto-fetch";
+import fetch from 'decentraland-crypto-fetch'
 
-const metadata = { key1: "value1" };
+const metadata = { key1: 'value1' }
 
-fetch("https://service.decentraland.org/api/resource", {
-  method: "POST",
+fetch('https://service.decentraland.org/api/resource', {
+  method: 'POST',
   identity,
   metadata,
-});
+})
 ```
 
 You can also inject sign headers into an existing request
 
 ```typescript
-import fetch from "decentraland-crypto-fetch";
+import fetch from 'decentraland-crypto-fetch'
 
-const metadata = { key1: "value1" };
-const request = new Request("https://service.decentraland.org/api/resource", {
-  method: "POST",
-});
+const metadata = { key1: 'value1' }
+const request = new Request('https://service.decentraland.org/api/resource', {
+  method: 'POST',
+})
 
-fetch(request, { identity, metadata });
+fetch(request, { identity, metadata })
 ```
 
 ### Auth Chain Generator
@@ -72,10 +72,10 @@ If you need an ephemeral identity you can generate one using the [`Identity Gene
 If your environment doesn't have a global [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) function, you can create a signedFetch injecting your own implementations as follow
 
 ```typescript
-import { signedFetchFactory } from "decentraland-crypto-fetch/lib/factory";
-import { Headers, Request, fetch } from "node-fetch";
+import { signedFetchFactory } from 'decentraland-crypto-fetch/lib/factory'
+import { Headers, Request, fetch } from 'node-fetch'
 
-const signedFetch = signedFetchFactory({ Headers, Request, fetch });
+const signedFetch = signedFetchFactory({ Headers, Request, fetch })
 ```
 
 ## Server
