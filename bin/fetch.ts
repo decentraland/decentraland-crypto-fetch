@@ -5,7 +5,7 @@ import { resolve } from "path";
 import { readFileSync } from "fs";
 import fetch, { Request, Headers } from "node-fetch";
 import { signedFetchFactory, SignedRequestInit } from "../src";
-import type { AuthIdentity } from "dcl-crypto";
+import type { AuthIdentity } from "@dcl/crypto";
 
 const parser = yargs
   .usage(

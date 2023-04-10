@@ -21,7 +21,7 @@ Make requests signed using a [Decentraland Identity](https://github.com/decentra
 
 ## Usage
 
-This library preserves the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) API and works on browsers and nodejs, you only need an Identity generate with [`dcl-crypto`](https://github.com/decentraland/decentraland-crypto)
+This library preserves the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/fetch) API and works on browsers and nodejs, you only need an Identity generate with [`@dcl/crypto`](https://github.com/decentraland/decentraland-crypto)
 
 ```typescript
 import fetch from "decentraland-crypto-fetch";
