@@ -1,6 +1,6 @@
 import fetch, { Request, Headers } from "node-fetch";
-import { Authenticator } from "dcl-crypto/dist/Authenticator";
-import { AuthIdentity, AuthLinkType } from "dcl-crypto/dist/types";
+import { Authenticator } from "@dcl/crypto";
+import { AuthIdentity, AuthLinkType } from "@dcl/crypto";
 import verify from "decentraland-crypto-middleware/lib/verify";
 import signedFetchFactory from "./signedFetchFactory";
 

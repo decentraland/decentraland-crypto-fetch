@@ -1,4 +1,4 @@
-import { Authenticator } from "dcl-crypto/dist/Authenticator";
+import { Authenticator } from "@dcl/crypto/dist/Authenticator";
 import { AuthIdentity, Metadata } from "./types";
 import { getImplementation } from "./utils";
 
