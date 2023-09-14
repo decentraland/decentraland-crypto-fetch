@@ -48,7 +48,6 @@
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "@types/node-fetch": "^2.5.12",
-    "colors": "^1.4.0",
     "decentraland-crypto-middleware": "^1.0.1",
     "fetch-mock": "^9.11.0",
     "husky": "^7.0.4",
