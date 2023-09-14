@@ -108,3 +108,4 @@ lib/
 
 # Identity file
 identity.json
+.DS_Store
