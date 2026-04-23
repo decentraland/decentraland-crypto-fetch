@@ -1,5 +1,11 @@
 # decentraland-crypto-fetch
 
+> **This repository is deprecated.**
+>
+> The `decentraland-crypto-fetch` library has been moved to the [core-libs monorepo](https://github.com/decentraland/core-libs) and is now maintained under [`libs/crypto-fetch`](https://github.com/decentraland/core-libs/tree/main/libs/crypto-fetch). Please open issues and pull requests there.
+
+---
+
 [![Coverage Status](https://coveralls.io/repos/github/decentraland/decentraland-crypto-fetch/badge.svg?branch=main)](https://coveralls.io/github/decentraland/decentraland-crypto-fetch?branch=main)
 
 - [Install](#install)
